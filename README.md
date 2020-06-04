@@ -3,7 +3,7 @@
 
 Krew 是一个用来管理 Kubectl 插件的工具，名字大概来自于 OS X 下著名的软件包管理器 Homebrew，使用 Krew 能够方便的查找、安装和使用 Kubectl 插件。
 
-## 1 实践
+## 1 通过 krew 安装 kubectl 插件
 ### 1.1 选择 Kubernetes 集群
 如果没有现成的 Kubernetes 集群，可以选择网上免费的 Kubernetes 集群资源：
 
@@ -40,7 +40,9 @@ access-matrix                   Show an RBAC access matrix for server resources 
 whoami                          Show the subject that's currently authenticated...  no
 ```
 
-### 1.3 安装 kubectl tree
+### 1.3 安装 kubectl 插件
+这里以 kubectl tree 举例说明，其他插件安装方式相同：
+
 ```shell
 master $ kubectl krew install tree
 + kubectl krew install tree
@@ -64,7 +66,9 @@ WARNING: You installed plugin "tree" from the krew-index plugin repository.
    Run them at your own risk.
 ```
 
-#### 1.3.1 利用 kubectl tree 查看
+## 2 查看 kubectl 插件
+
+### 2.1 kubectl tree
 ```shell
 master $ kubectl tree deployment coredns -n kube-system
 + kubectl tree deployment coredns -n kube-system
@@ -75,7 +79,120 @@ kube-system    ├─Pod/coredns-66bff467f8-vqpss  True           43m
 kube-system    └─Pod/coredns-66bff467f8-z8fg4  True           43m
 ```
 
-## 2. 分析
+### 2.2 kubectl access-matrix
+```shell
+master $ kubectl access-matrix
++ kubectl access-matrix
+NAME                                                          LIST  CREATE  UPDATE  DELETE
+apiservices.apiregistration.k8s.io                            ✔     ✔       ✔       ✔
+bindings                                                            ✔
+certificatesigningrequests.certificates.k8s.io                ✔     ✔       ✔       ✔
+clusterrolebindings.rbac.authorization.k8s.io                 ✔     ✔       ✔       ✔
+clusterroles.rbac.authorization.k8s.io                        ✔     ✔       ✔       ✔
+componentstatuses                                             ✔
+configmaps                                                    ✔     ✔       ✔       ✔
+controllerrevisions.apps                                      ✔     ✔       ✔       ✔
+cronjobs.batch                                                ✔     ✔       ✔       ✔
+csidrivers.storage.k8s.io                                     ✔     ✔       ✔       ✔
+csinodes.storage.k8s.io                                       ✔     ✔       ✔       ✔
+customresourcedefinitions.apiextensions.k8s.io                ✔     ✔       ✔       ✔
+daemonsets.apps                                               ✔     ✔       ✔       ✔
+deployments.apps                                              ✔     ✔       ✔       ✔
+endpoints                                                     ✔     ✔       ✔       ✔
+endpointslices.discovery.k8s.io                               ✔     ✔       ✔       ✔
+events                                                        ✔     ✔       ✔       ✔
+events.events.k8s.io                                          ✔     ✔       ✔       ✔
+horizontalpodautoscalers.autoscaling                          ✔     ✔       ✔       ✔
+ingressclasses.networking.k8s.io                              ✔     ✔       ✔       ✔
+ingresses.extensions                                          ✔     ✔       ✔       ✔
+ingresses.networking.k8s.io                                   ✔     ✔       ✔       ✔
+jobs.batch                                                    ✔     ✔       ✔       ✔
+leases.coordination.k8s.io                                    ✔     ✔       ✔       ✔
+limitranges                                                   ✔     ✔       ✔       ✔
+localsubjectaccessreviews.authorization.k8s.io                      ✔
+mutatingwebhookconfigurations.admissionregistration.k8s.io    ✔     ✔       ✔       ✔
+namespaces                                                    ✔     ✔       ✔       ✔
+networkpolicies.networking.k8s.io                             ✔     ✔       ✔       ✔
+nodes                                                         ✔     ✔       ✔       ✔
+persistentvolumeclaims                                        ✔     ✔       ✔       ✔
+persistentvolumes                                             ✔     ✔       ✔       ✔
+poddisruptionbudgets.policy                                   ✔     ✔       ✔       ✔
+pods                                                          ✔     ✔       ✔       ✔
+podsecuritypolicies.policy                                    ✔     ✔       ✔       ✔
+podtemplates                                                  ✔     ✔       ✔       ✔
+priorityclasses.scheduling.k8s.io                             ✔     ✔       ✔       ✔
+replicasets.apps                                              ✔     ✔       ✔       ✔
+replicationcontrollers                                        ✔     ✔       ✔       ✔
+resourcequotas                                                ✔     ✔       ✔       ✔
+rolebindings.rbac.authorization.k8s.io                        ✔     ✔       ✔       ✔
+roles.rbac.authorization.k8s.io                               ✔     ✔       ✔       ✔
+runtimeclasses.node.k8s.io                                    ✔     ✔       ✔       ✔
+secrets                                                       ✔     ✔       ✔       ✔
+selfsubjectaccessreviews.authorization.k8s.io                       ✔
+selfsubjectrulesreviews.authorization.k8s.io                        ✔
+serviceaccounts                                               ✔     ✔       ✔       ✔
+services                                                      ✔     ✔       ✔       ✔
+statefulsets.apps                                             ✔     ✔       ✔       ✔
+storageclasses.storage.k8s.io                                 ✔     ✔       ✔       ✔
+subjectaccessreviews.authorization.k8s.io                           ✔
+tokenreviews.authentication.k8s.io                                  ✔
+validatingwebhookconfigurations.admissionregistration.k8s.io  ✔     ✔       ✔       ✔
+volumeattachments.storage.k8s.io                              ✔     ✔       ✔       ✔
+No namespace given, this implies cluster scope (try -n if this is not intended)
+```
+
+### 2.3 kubectl advise-psp
+关于 PSP，可以参考：[Kubernetes 中的 Pod 安全策略](https://blog.fleeto.us/post/psp-in-kubernetes/)
+
+```shell
+master $ kubectl advise-psp inspect
++ kubectl advise-psp inspect
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  creationTimestamp: null
+  name: pod-security-policy-all-20200604023350
+spec:
+  allowedCapabilities:
+  - NET_ADMIN
+  allowedHostPaths:
+  - pathPrefix: /etc/ssl/certs
+    readOnly: true
+  - pathPrefix: /run/flannel
+    readOnly: true
+  - pathPrefix: /etc/cni/net.d
+    readOnly: true
+  - pathPrefix: /lib/modules
+    readOnly: true
+  - pathPrefix: /dev
+    readOnly: true
+  - pathPrefix: /run/xtables.lock
+    readOnly: true
+  fsGroup:
+    rule: RunAsAny
+  hostNetwork: true
+  hostPorts:
+  - max: 0
+    min: 0
+  privileged: true
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  volumes:
+  - hostPath
+  - configMap
+  - secret
+```
+
+
+
+
+
+
+## 3 利用 krew 新建 kubectl 插件 
 Krew 除了落在客户端的可执行文件之外，和其它软件包管理系统一样，也同样需要有一个索引系统，并根据索引进行软件查询和下载，下载之后的软件保存在本地，供 kubectl 调用。
 
 ### 2.1 索引
