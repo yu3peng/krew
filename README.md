@@ -187,18 +187,13 @@ spec:
   - secret
 ```
 
-
-
-
-
-
 ## 3 利用 krew 新建 kubectl 插件 
 Krew 除了落在客户端的可执行文件之外，和其它软件包管理系统一样，也同样需要有一个索引系统，并根据索引进行软件查询和下载，下载之后的软件保存在本地，供 kubectl 调用。
 
-### 2.1 索引
+### 3.1 索引
 Krew 的索引保存在一个名为 [krew-index](https://github.com/kubernetes-sigs/krew-index) 的代码库中。其中的 plugins 目录保存了一组 yaml 文件，就是插件的目录。
 
-#### 2.1.1 YAML 清单
+#### 3.1.1 YAML 清单
 随意打开一个清单文件，我们以 [tree](https://github.com/kubernetes-sigs/krew-index/blob/master/plugins/tree.yaml) 为例，可以看到这样的内容：
 ```yaml
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
@@ -259,7 +254,7 @@ spec:
 
 下面用一个实际的例子来说明一下这个过程。
 
-### 2.2 编写插件代码
+### 3.2 编写插件代码
 插件代码本身的编写非常简单和随意，可以用你喜欢的任何语言，例如 golang、python 或者 shell。只有一个推荐的命名规则：kubectl-rm，在 kubectl 中调用时就可以使用 kubectl rm 了。例如我要编写一个对输出 JSON 进行过滤的插件，代码如下：
 
 ```shell
@@ -293,7 +288,7 @@ kubectl get ${OTHER} -ojson | jq -S "del(${METADATA}, ${STATUS}, ${ANNOTATION}, 
 想法很简单，获取运行中的对象描述，使用 JQ 对数据进行清理和排序，输出一个相对标准的结果，便于不同环境间的比较和部署的导出。
 > 虽然最后是通过 kubectl std-json 的方式调用，这里的 $0 指的仍然是脚本自身。
 
-### 2.3 制作清单和测试
+### 3.3 制作清单和测试
 照猫画虎，按照上面的 YAML 代码，编写自己的清单。
 
 清单要求，需要打一个压缩包便于下载，我们把可执行文件和 LICENSE 文件放置到单独的目录 kubectl-std-json-v0.1.0 中，压缩生成一个 .tar.gz 文件，部分清单如下
