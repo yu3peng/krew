@@ -313,6 +313,25 @@ $ kubectl view-allocations
   └─ node01                                            0.0          0%      0.0      0%        110.0   110.0
 ```
 
+2.5 kubectl topology
+```shell
+$ kubectl topology pod
++ kubectl topology pod
+NAMESPACE     NAME                                      NODE           REGION   ZONE
+kube-system   coredns-66bff467f8-5dgzc                  controlplane
+kube-system   coredns-66bff467f8-lvctb                  controlplane
+kube-system   etcd-controlplane                         controlplane
+kube-system   katacoda-cloud-provider-58f89f7d9-r544v   node01
+kube-system   kube-apiserver-controlplane               controlplane
+kube-system   kube-controller-manager-controlplane      controlplane
+kube-system   kube-flannel-ds-amd64-nwg94               controlplane
+kube-system   kube-flannel-ds-amd64-pwn7p               node01
+kube-system   kube-keepalived-vip-k4lt7                 node01
+kube-system   kube-proxy-7q6cx                          node01
+kube-system   kube-proxy-v7bgb                          controlplane
+kube-system   kube-scheduler-controlplane               controlplane
+```
+
 ## 3 利用 krew 新建 kubectl 插件 
 Krew 除了落在客户端的可执行文件之外，和其它软件包管理系统一样，也同样需要有一个索引系统，并根据索引进行软件查询和下载，下载之后的软件保存在本地，供 kubectl 调用。
 
