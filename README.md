@@ -70,7 +70,7 @@ WARNING: You installed plugin "tree" from the krew-index plugin repository.
 
 ### 2.1 kubectl tree
 ```shell
-master $ kubectl tree deployment coredns -n kube-system
+$ kubectl tree deployment coredns -n kube-system
 + kubectl tree deployment coredns -n kube-system
 NAMESPACE    NAME                              READY  REASON  AGE
 kube-system  Deployment/coredns                -              44m
@@ -81,7 +81,7 @@ kube-system    └─Pod/coredns-66bff467f8-z8fg4  True           43m
 
 ### 2.2 kubectl access-matrix
 ```shell
-master $ kubectl access-matrix
+$ kubectl access-matrix
 + kubectl access-matrix
 NAME                                                          LIST  CREATE  UPDATE  DELETE
 apiservices.apiregistration.k8s.io                            ✔     ✔       ✔       ✔
@@ -145,7 +145,7 @@ No namespace given, this implies cluster scope (try -n if this is not intended)
 关于 PSP，可以参考：[Kubernetes 中的 Pod 安全策略](https://blog.fleeto.us/post/psp-in-kubernetes/)
 
 ```shell
-master $ kubectl advise-psp inspect
+$ kubectl advise-psp inspect
 + kubectl advise-psp inspect
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
@@ -185,6 +185,37 @@ spec:
   - hostPath
   - configMap
   - secret
+```
+
+### 2.4 kubectl view-allocations
+```shell
+$ kubectl view-allocations
++ kubectl view-allocations
+ Resource                                        Requested  %Requested    Limit  %Limit  Allocatable    Free
+  cpu                                              1150.0m         29%   200.0m      5%          4.0     2.9
+  ├─ controlplane                                   850.0m         42%   100.0m      5%          2.0     1.1
+  │  ├─ coredns-66bff467f8-b2x8w                    100.0m                  0.0
+  │  ├─ coredns-66bff467f8-z57t9                    100.0m                  0.0
+  │  ├─ kube-apiserver-controlplane                 250.0m                  0.0
+  │  ├─ kube-controller-manager-controlplane        200.0m                  0.0
+  │  ├─ kube-flannel-ds-amd64-6gjzl                 100.0m               100.0m
+  │  └─ kube-scheduler-controlplane                 100.0m                  0.0
+  └─ node01                                         300.0m         15%   100.0m      5%          2.0     1.7
+     ├─ katacoda-cloud-provider-58f89f7d9-pnbbr     200.0m                  0.0
+     └─ kube-flannel-ds-amd64-pkdg9                 100.0m               100.0m
+  ephemeral-storage                                    0.0          0%      0.0      0%       367.8G  367.8G
+  ├─ controlplane                                      0.0          0%      0.0      0%       183.9G  183.9G
+  └─ node01                                            0.0          0%      0.0      0%       183.9G  183.9G
+  memory                                           240.0Mi          4%  440.0Mi      8%        5.6Gi   5.2Gi
+  ├─ controlplane                                  190.0Mi         10%  390.0Mi     21%        1.8Gi   1.5Gi
+  │  ├─ coredns-66bff467f8-b2x8w                    70.0Mi              170.0Mi
+  │  ├─ coredns-66bff467f8-z57t9                    70.0Mi              170.0Mi
+  │  └─ kube-flannel-ds-amd64-6gjzl                 50.0Mi               50.0Mi
+  └─ node01                                         50.0Mi          1%   50.0Mi      1%        3.8Gi   3.7Gi
+     └─ kube-flannel-ds-amd64-pkdg9                 50.0Mi               50.0Mi
+  pods                                                 0.0          0%      0.0      0%        220.0   220.0
+  ├─ controlplane                                      0.0          0%      0.0      0%        110.0   110.0
+  └─ node01                                            0.0          0%      0.0      0%        110.0   110.0
 ```
 
 ## 3 利用 krew 新建 kubectl 插件 
