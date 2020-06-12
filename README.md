@@ -332,6 +332,47 @@ kube-system   kube-proxy-v7bgb                          controlplane
 kube-system   kube-scheduler-controlplane               controlplane
 ```
 
+2.6 kubectl podevents
+```shell
+$ kubectl podevents -A
++ kubectl podevents -A
+Events for 'kube-system/coredns-66bff467f8-5dgzc':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/coredns-66bff467f8-lvctb':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/etcd-controlplane':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/katacoda-cloud-provider-58f89f7d9-r544v':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-apiserver-controlplane':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-controller-manager-controlplane':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-flannel-ds-amd64-nwg94':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-flannel-ds-amd64-pwn7p':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-keepalived-vip-k4lt7':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-proxy-7q6cx':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-proxy-v7bgb':
+LAST SEEN       TYPE    REASON  MESSAGE
+
+Events for 'kube-system/kube-scheduler-controlplane':
+LAST SEEN       TYPE    REASON  MESSAGE
+```
+
 ## 3 利用 krew 新建 kubectl 插件 
 Krew 除了落在客户端的可执行文件之外，和其它软件包管理系统一样，也同样需要有一个索引系统，并根据索引进行软件查询和下载，下载之后的软件保存在本地，供 kubectl 调用。
 
